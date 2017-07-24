@@ -219,6 +219,7 @@ function save_plots_simpleloops(folder, simpleloops, simpleloopscurrents,
         plot_simpleloop(simpleloops[i], simpleloopscurrents[i],
             vertex_positions, elemcurrents, simpleloopscurrents_decomp[i])
         savefig(joinpath(folder, "simpleloop$(lpad(i, 3, 0)).png"), dpi = 150)
+        close("all")
     end
 end
 
@@ -289,24 +290,28 @@ function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
     figure(figsize = (15,15))
     plot_system(g, vertex_positions, poi)
     savefig(joinpath(folder, "system.$extension"), dpi = dpi)
+    close("all")
 
     figure(figsize = (15,15))
     plot_system(g, vertex_positions, poi)
     gca()[:azim] = -90
     gca()[:elev] = 90
     savefig(joinpath(folder, "system_top.$extension"), dpi = dpi)
+    close("all")
 
     figure(figsize = (15,15))
     plot_system(g, vertex_positions, poi)
     gca()[:azim] = -90
     gca()[:elev] = 0
     savefig(joinpath(folder, "system_front.$extension"), dpi = dpi)
+    close("all")
 
     figure(figsize = (15,15))
     plot_system(g, vertex_positions, poi)
     gca()[:azim] = 0
     gca()[:elev] = 0
     savefig(joinpath(folder, "system_right.$extension"), dpi = dpi)
+    close("all")
 
     printlnflush("Plotting the field of the solution...")
 
@@ -315,6 +320,7 @@ function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
         plot_loops_field(simpleloops, simpleloopscurrents, vertex_positions,
             [1,2,3], z, n = 50, Bref = Bgoal)
         savefig(joinpath(folder, "field_XY_z$(signif(z,2)).$extension"), dpi = dpi)
+        close("all")
     end
 
     xspan = extrema([ p[1] for p in vertex_positions])
@@ -322,6 +328,7 @@ function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
         plot_loops_field(simpleloops, simpleloopscurrents, vertex_positions,
             [3,2,1], x, n = 50, Bref = Bgoal)
         savefig(joinpath(folder, "field_ZY_x$(signif(x,2)).$extension"), dpi = dpi)
+        close("all")
     end
 
     printlnflush("Plotting the deviation histogram...")
@@ -329,6 +336,7 @@ function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
     plot_deviation_histogram(poi, simpleloops, simpleloopscurrents,
         vertex_positions, Bgoal)
     savefig(joinpath(folder, "deviation_histogram.$extension"), dpi = dpi)
+    close("all")
 
     printlnflush("Plotting the simple loops...")
 
