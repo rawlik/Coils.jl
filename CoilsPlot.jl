@@ -194,7 +194,7 @@ end
 
 
 function decompose_string(x, coeffs, elements)
-    "$(signif(x, 6)) ≈ $(join([ "$(signif(Float64(c), 6))×$e" for (c, e) in zip(coeffs, elements)], " + "))"
+    "$(signif(Float64(x), 6)) ≈ $(join([ "$(c)×$e" for (c, e) in zip(coeffs, elements)], " + "))"
 end
 
 
