@@ -24,6 +24,14 @@ design(x -> [100e-6, 0, 0], "X")
 design(x -> [0, 100e-6, 0], "Y")
 design(x -> [0, 0, 100e-6], "Z")
 
-design(x -> [10e-6 * x[1], 0, 0], "dBx_dx")
-design(x -> [10e-6 * x[2], 0, 0], "dBx_dy")
-design(x -> [10e-6 * x[3], 0, 0], "dBx_dz")
+design(x -> [100e-6 * x[1], 0, 0], "dBx_dx")
+design(x -> [100e-6 * x[2], 0, 0], "dBx_dy")
+design(x -> [100e-6 * x[3], 0, 0], "dBx_dz")
+
+design(x -> [0, 100e-6 * x[1], 0], "dBy_dx")
+design(x -> [0, 100e-6 * x[2], 0], "dBy_dy")
+design(x -> [0, 100e-6 * x[3], 0], "dBy_dz")
+
+design(x -> [0, 0, 100e-6 * x[1]], "dBz_dx")
+design(x -> [0, 0, 100e-6 * x[2]], "dBz_dy")
+design(x -> [0, 0, 100e-6 * x[3]], "dBz_dz")
