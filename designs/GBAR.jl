@@ -39,7 +39,7 @@ function design(Bgoal, name)
         initialcells = initialcells)
     simpleloopscurrents_decomp = decompose_currents(simpleloopscurrents, elemcurrents)
 
-    save_report("small_$name", vertex_positions, g, poi, Bgoal, simpleloops,
+    save_report("GBAR_$name", vertex_positions, g, poi, Bgoal, simpleloops,
         simpleloopscurrents, elemcurrents, simpleloopscurrents_decomp,
         levels = linspace(-30, 30, 21))
 end
