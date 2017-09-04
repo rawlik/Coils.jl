@@ -4,7 +4,7 @@
 # Best,
 # Paolo
 
-# goal: μT/m
+# goal: 2 μT/m
 
 using PyPlot
 
