@@ -313,30 +313,35 @@ function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
     savefig(joinpath(folder, "system_right.$extension"), dpi = dpi)
     close("all")
 
+    simpleloopscurrents_real = real_decomposed_currents(
+        simpleloopscurrents_decomp, elemcurrents)
+
+    printlnflush("Plotting the deviation histogram...")
+    figure()
+    plot_deviation_histogram(poi, simpleloops, simpleloopscurrents_real,
+        vertex_positions, Bgoal)
+    savefig(joinpath(folder, "deviation_histogram.$extension"), dpi = dpi)
+    close("all")
+
     printlnflush("Plotting the field of the solution...")
 
     zspan = extrema([ p[3] for p in vertex_positions])
     for z in linspace(zspan..., 5)[2 : end-1]
-        plot_loops_field(simpleloops, simpleloopscurrents, vertex_positions,
+        plot_loops_field(simpleloops, simpleloopscurrents_real, vertex_positions,
             [1,2,3], z, n = 50, Bref = Bgoal)
-        savefig(joinpath(folder, "field_XY_z$(signif(z,2)).$extension"), dpi = dpi)
+        savefig(joinpath(folder, "field_XY_z$(signif(z,2)).$extension"),
+            dpi = dpi, levels = levels)
         close("all")
     end
 
     xspan = extrema([ p[1] for p in vertex_positions])
     for x in linspace(xspan..., 5)[2 : end-1]
-        plot_loops_field(simpleloops, simpleloopscurrents, vertex_positions,
+        plot_loops_field(simpleloops, simpleloopscurrents_real, vertex_positions,
             [3,2,1], x, n = 50, Bref = Bgoal)
-        savefig(joinpath(folder, "field_ZY_x$(signif(x,2)).$extension"), dpi = dpi)
+        savefig(joinpath(folder, "field_ZY_x$(signif(x,2)).$extension"),
+            dpi = dpi, levels = levels)
         close("all")
     end
-
-    printlnflush("Plotting the deviation histogram...")
-    figure()
-    plot_deviation_histogram(poi, simpleloops, simpleloopscurrents,
-        vertex_positions, Bgoal)
-    savefig(joinpath(folder, "deviation_histogram.$extension"), dpi = dpi)
-    close("all")
 
     printlnflush("Plotting the simple loops...")
 

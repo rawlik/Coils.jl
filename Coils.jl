@@ -9,7 +9,8 @@ using ProgressMeter
 export cuboid_system, getedgei, getedge, find_cells, biotsavart,
     biotsavart_cell, system_matrix, find_edgecurrents, simplify_current_graph,
     find_simpleloop, find_all_simpleloops, solve_system, cuboid_poi,
-    decompose, decompose_currents, field_loops, μ0
+    decompose, decompose_currents, field_loops, μ0, order_cell,
+    real_decomposed_currents
 
 
 
@@ -481,6 +482,30 @@ end
 
 function decompose_currents(currents, elemcurrents)
     [ decompose(c, elemcurrents, roundlast = true) for c in currents ]
+end
+
+
+function real_decomposed_currents(simpleloopscurrents_decomp, elemcurrents)
+    [ sum(decomp .* elemcurrents) for decomp in simpleloopscurrents_decomp ]
+end
+
+
+"Given the set of points that would make up a cell, order them into a proper cell."
+function order_cell(g, face_unordered)
+    face = [ face_unordered[1] ]
+
+    while true
+        for n in [in_neighbors(g, face[end]); out_neighbors(g, face[end])]
+            n in face_unordered || continue
+            n in face && continue
+            push!(face, n)
+            break
+        end
+        length(face) >= length(face_unordered) && break
+    end
+
+    push!(face, face[1])
+    face
 end
 
 
