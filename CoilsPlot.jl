@@ -69,14 +69,14 @@ function plot_vertices(vertex_positions; standalone = true, labels = true)
 end
 
 
-function plot_edges(g, vertex_positions; standalone = true)
+function plot_edges(g, vertex_positions; standalone = true, alpha = 1)
     standalone && subplot(111, projection = "3d")
 
     for edge in edges(g)
         pos1 = vertex_positions[src(edge)]
         pos2 = vertex_positions[dst(edge)]
         gca()[:plot]([pos1[1], pos2[1]], [pos1[2], pos2[2]], [pos1[3], pos2[3]],
-            color = "black")
+            color = "black", alpha = alpha)
     end
 
     if standalone
