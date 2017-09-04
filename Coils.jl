@@ -76,7 +76,7 @@ function cuboid_system(totalsize, ntiles; skipfaces = falses(6))
     for i in eachindex(vertex_positions)
         for j in (i+1):length(vertex_positions)
             # the "mean(tile_size) is not the best, at the moment. Only works for equal tiles
-            if abs(norm(vertex_positions[i] .- vertex_positions[j]) - mean(tile_size)) < 0.001
+            if abs(norm(vertex_positions[i] .- vertex_positions[j]) - mean(tile_size)) < 0.01
                 add_edge!(g, i, j)
             end
         end
