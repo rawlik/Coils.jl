@@ -12,17 +12,17 @@ push!(LOAD_PATH, pwd())
 using Coils
 using CoilsPlot
 
-g, vertex_positions = cuboid_system([2, 2/5*7, 2], [5, 7, 5],
+g, vertex_positions = cuboid_system([2, 3.4, 2], [3, 5, 3],
     skipfaces = [false, false, true, true, false, false])
 poi = cuboid_poi([0.6, 0.6, 0.6], [0.0, 0.0, 0.0], [9, 9, 9], filled = false)
 
 # prepare the large cells
 front_face_unordered = [ i for i in eachindex(vertex_positions)
-    if vertex_positions[i][2] < -1.35 ]
+    if vertex_positions[i][2] < -1.6 ]
 front_face = order_cell(g, front_face_unordered)
 
 back_face_unordered = [ i for i in eachindex(vertex_positions)
-    if vertex_positions[i][2] > 1.35 ]
+    if vertex_positions[i][2] > 1.6 ]
 back_face = order_cell(g, back_face_unordered)
 
 initialcells = [front_face, back_face]
