@@ -339,7 +339,7 @@ function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
     xspan = extrema([ p[1] for p in vertex_positions])
     for x in linspace(xspan..., 5)[2 : end-1]
         plot_loops_field(simpleloops, simpleloopscurrents_real, vertex_positions,
-            [3,2,1], x, n = 50, Bref = Bgoal, , levels = levels)
+            [3,2,1], x, n = 50, Bref = Bgoal, levels = levels)
         savefig(joinpath(folder, "field_ZY_x$(signif(x,2)).$extension"),
             dpi = dpi)
         close("all")
