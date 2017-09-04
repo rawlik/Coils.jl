@@ -13,7 +13,7 @@ using Coils
 export plot_vertex, plot_vertices, plot_edges, plot_system,
     plot_cell, plot_edge_current, plot_loop, plot_simpleloop,
     save_plots_simpleloops, save_report, plot_edge_currents,
-    plot_cells, plot_loops_field
+    plot_cells, plot_loops_field, plot_deviation_histogram
 
 
 
