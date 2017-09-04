@@ -350,7 +350,7 @@ end
 
 
 function find_all_simpleloops(g, edgecurrents; tolerance = 1e-10,
-        verbose = false)
+        mincurrent = 0, verbose = false)
 
     simpleloops = []
     simpleloopscurrents = []
@@ -372,6 +372,8 @@ function find_all_simpleloops(g, edgecurrents; tolerance = 1e-10,
             println("   the maximum current left is $(maximum(abs, values(edgecurrentss)))")
             break
         end
+
+        abs(current) < mincurrent && break
 
         push!(simpleloopscurrents, current)
         push!(simpleloops, simpleloop)
@@ -403,7 +405,8 @@ function printlnflush(s)
 end
 
 function solve_system(g, vertex_positions, poi, B; initialcells = [],
-        verbose = false, tolerance = 1e-10, bigfloat = false)
+        verbose = false, tolerance = 1e-10, bigfloat = false, λ = 0,
+        mincurrent = 0)
 
     verbose && printlnflush("Looking for cells in the graph...")
     cells = find_cells(g, cells = initialcells)
@@ -418,15 +421,16 @@ function solve_system(g, vertex_positions, poi, B; initialcells = [],
 
     # calculate the optimal currents for the given goal field
     # \ returns the least-norm solution already (so least current) in case of ambiguity
+    # We are using Tikchonov regularization
     verbose && printlnflush("Solving for currents in the cells...")
-    optI = M \ Bpoi
+    optI = [M; λ * eye(size(M,2))] \ [Bpoi; zeros(size(M,2))]
 
     verbose && printlnflush("Finding the total currents along the edges...")
     edgecurrents = find_edgecurrents(g, cells, optI, bigfloat = bigfloat)
 
     verbose && printlnflush("Decomposing the solution into simple loops...")
     simpleloops, simpleloopscurrents = find_all_simpleloops(g, edgecurrents,
-        tolerance = tolerance)
+        tolerance = tolerance, mincurrent = mincurrent)
 end
 
 
