@@ -231,7 +231,8 @@ function plot_loops_field(loops, currents, vertex_positions,
         dirs, valC;
         n = 50, Bref = x -> [0, 0, 0],
         spanA = extrema([ p[dirs[1]] for p in vertex_positions]),
-        spanB = extrema([ p[dirs[2]] for p in vertex_positions]))
+        spanB = extrema([ p[dirs[2]] for p in vertex_positions]),
+        levels = -5:5)
 
     As = linspace(spanA..., n)
     Bs = linspace(spanB..., n)
@@ -246,7 +247,7 @@ function plot_loops_field(loops, currents, vertex_positions,
     f, axs = subplots(1, 4, figsize = (10,4), gridspec_kw = Dict("width_ratios" => [1, 1, 1, 0.1]))
     for i in 1:3
         sca(axs[i])
-        contourf(As, Bs, B[:,:,i]' * 1e6, levels = -5:5, extend = "both")
+        contourf(As, Bs, B[:,:,i]' * 1e6, levels = levels, extend = "both")
         gca()[:set_aspect]("equal")
         xlabel("xyz"[dirs[1:1]])
         ylabel("xyz"[dirs[2:2]])
@@ -282,7 +283,8 @@ end
 
 function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
         simpleloopscurrents, elemcurrents, simpleloopscurrents_decomp;
-        extension = "png", dpi = 150)
+        extension = "png", dpi = 150,
+        levels = -5:5)
     isdir(folder) || mkdir(folder)
 
     printlnflush("Plotting the geometry of the system...")
