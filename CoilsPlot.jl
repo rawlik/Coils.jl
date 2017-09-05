@@ -251,7 +251,7 @@ function plot_loops_field(loops, currents, vertex_positions,
     f, axs = subplots(1, 4, figsize = (10,4), gridspec_kw = Dict("width_ratios" => [1, 1, 1, 0.1]))
     for i in 1:3
         sca(axs[i])
-        contourf(As, Bs, B[:,:,i]' * 1e6, levels = levels, extend = "both")
+        contourf(As, Bs, B[:,:,i]' * 1e6, levels = levels, extend = "both", cmap="RdBu_r")
         gca()[:set_aspect]("equal")
         xlabel("xyz"[dirs[1:1]])
         ylabel("xyz"[dirs[2:2]])
