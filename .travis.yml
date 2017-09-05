@@ -1,0 +1,11 @@
+language: julia
+os:
+  - linux
+  - osx
+julia:
+  - 0.6
+script:
+  - julia -e 'Pkg.update()'
+  - julia -e 'Pkg.add("LightGraphs")'
+  - julia -e 'Pkg.add("ProgressMeter")'
+  - julia test.jl
