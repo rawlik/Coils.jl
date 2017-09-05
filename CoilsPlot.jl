@@ -226,7 +226,11 @@ end
 
 "dirs - what to plot, eg. [3, 1, 2] will put z (the 3rd dimension) on the
     x-axis of the plot, x (the 1st dimension) on the y axis and will keep
-    y (the 2nd dimension) fixed."
+    y (the 2nd dimension) fixed.
+    spanA is the span of the first of the plotted dimension (along the x axis
+    of the resulting plot).
+    spanB is the span of the second of the plotted dimension (along the y axis
+    of the resulting plot)."
 function plot_loops_field(loops, currents, vertex_positions,
         dirs, valC;
         n = 50, Bref = x -> [0, 0, 0],
