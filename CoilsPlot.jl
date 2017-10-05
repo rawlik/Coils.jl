@@ -5,6 +5,7 @@ using ProgressMeter
 using PyPlot
 using PyCall
 @pyimport matplotlib.patheffects as patheffects
+unshift!(PyVector(pyimport("sys")["path"]), joinpath(dirname(@__FILE__)))
 @pyimport arrow3d
 
 using Coils
