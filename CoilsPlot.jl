@@ -273,7 +273,7 @@ function plot_deviation_histogram(poi, loops, loopscurrents, vertex_positions,
     deviations = vcat([
         field_loops(p, loops, loopscurrents, vertex_positions) .- Bgoal(p)
         for p in poi ]...)
-    plt[:hist](deviations * 1e6, bins = 100)
+    plt[:hist](deviations * 1e6, bins = 100, nonposy="clip")
     yscale("log")
     xlabel("deviation from goal (μT)")
     ylabel("# POI")
