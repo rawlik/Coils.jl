@@ -523,7 +523,7 @@ function save_result(filename, simpleloops, simpleloopscurrents,
     # truncate the contents of the output file
     open(filename, "w") do file
         for i in eachindex(simpleloopscurrents)
-            write(file, i, "  :  ")
+            write(file, lpad(i, 4), "  :  ")
             write(file, decompose_string(simpleloopscurrents[i],
                                          simpleloopscurrents_decomp[i],
                                          elemcurrents))
