@@ -10,7 +10,7 @@ export cuboid_system, getedgei, getedge, find_cells, biotsavart,
     biotsavart_cell, system_matrix, find_edgecurrents, simplify_current_graph,
     find_simpleloop, find_all_simpleloops, solve_system, cuboid_poi,
     decompose, decompose_currents, field_loops, μ0, order_cell,
-    real_decomposed_currents
+    real_decomposed_currents, save_result
 
 
 
@@ -510,6 +510,27 @@ function order_cell(g, face_unordered)
 
     push!(face, face[1])
     face
+end
+
+
+function decompose_string(x, coeffs, elements)
+    "$(signif(Float64(x), 6)) = $(join([ "$(c)*$e" for (c, e) in zip(coeffs, elements)], " + "))"
+end
+
+
+function save_result(filename, simpleloops, simpleloopscurrents,
+                     simpleloopscurrents_decomp, elemcurrents)
+    # truncate the contents of the output file
+    open(filename, "w") do file
+        for i in eachindex(simpleloopscurrents)
+            write(file, decompose_string(simpleloopscurrents[i],
+                                         simpleloopscurrents_decomp[i],
+                                         elemcurrents))
+            write(file, "  :  ")
+            write(file, repr(simpleloops[i]))
+            write(file, "\n")
+        end
+    end
 end
 
 
