@@ -4,8 +4,10 @@ os:
   - osx
 julia:
   - 0.6
+  - 0.7
+  - 1.0
 script:
-  - julia -e 'Pkg.update()'
-  - julia -e 'Pkg.add("LightGraphs")'
-  - julia -e 'Pkg.add("ProgressMeter")'
+  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.update()'
+  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.add("LightGraphs")'
+  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.add("ProgressMeter")'
   - julia test.jl
