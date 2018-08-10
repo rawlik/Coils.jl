@@ -142,7 +142,7 @@ function find_cells(g; maxpathlength = Inf, cells = [])
             path = shift!(paths)
             length(path) > maxpathlength && break
 
-            for n in [ collect(out_neighbors(g, path[end])); collect(in_neighbors(g, path[end])) ]
+            for n in [ collect(outneighbors(g, path[end])); collect(inneighbors(g, path[end])) ]
                 # try to extend the path
                 if edgetaken[getedgei(g, path[end], n)] >= 2
                     # edge already a member of two cells
@@ -170,7 +170,7 @@ function find_cells(g; maxpathlength = Inf, cells = [])
             # a very generous stop condition
             # if the number of cells found for this vertex is at least number of its neighbors
             # typically can stop earlier
-            total_neighbors = (length(out_neighbors(g, i)) + length(in_neighbors(g, i)))
+            total_neighbors = (length(outneighbors(g, i)) + length(inneighbors(g, i)))
             already_in = count(cell -> i in cell, cells)
             already_in >= total_neighbors && break
         end
@@ -321,7 +321,7 @@ function findsimpleloop(g, edgecurrents; maxcurrent = Inf, maxpathlength = Inf,
                 verbose && (safetycounter += 1) % 10_000 == 0 && println("  Pathlength: $(length(path))")
 
                 # only go in the direction of positive current, so outcoming edges
-                for n in out_neighbors(g, path[end])
+                for n in outneighbors(g, path[end])
                     # add a safety margin for threshold
                     if edgecurrents[getedge(g, path[end], n)] <= (current - tolerance)
                         # cannot go here, too high current
@@ -499,7 +499,7 @@ function order_cell(g, face_unordered)
     face = [ face_unordered[1] ]
 
     while true
-        for n in [in_neighbors(g, face[end]); out_neighbors(g, face[end])]
+        for n in [inneighbors(g, face[end]); outneighbors(g, face[end])]
             n in face_unordered || continue
             n in face && continue
             push!(face, n)
