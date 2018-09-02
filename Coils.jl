@@ -2,6 +2,10 @@ __precompile__()
 
 module Coils
 
+if VERSION >= v"1.0.0"
+    using Statistics
+    using LinearAlgebra
+end
 using LightGraphs
 using ProgressMeter
 
@@ -13,10 +17,19 @@ export cuboid_system, getedgei, getedge, find_cells, biotsavart,
     real_decomposed_currents, save_result
 
 
+if VERSION >= v"1.0.0"
+    "To be able to write linspace.(starts, stops, lengths)"
+    linspace(start, stop, length) = range(start, stop = stop, length = length)
+end
+
+if VERSION < v"1.0.0"
+    popfirst!(x) = shift!(x)
+end
+
 
 "skipfaces is in the order [x-, x+, y-, y+, z-, z+]"
 function cuboid_system(totalsize, ntiles; skipfaces = falses(6))
-    gridplanes = linspace.(-totalsize / 2, totalsize / 2, ntiles + 1)
+    gridplanes = linspace.(-totalsize / 2, totalsize / 2, ntiles .+ 1)
     vertex_positions = []
 
     # construct the vertices
@@ -139,7 +152,7 @@ function find_cells(g; maxpathlength = Inf, cells = [])
         while !isempty(paths)
             # get all cells including that vertex
             # take the last added path
-            path = shift!(paths)
+            path = popfirst!(paths)
             length(path) > maxpathlength && break
 
             for n in [ collect(outneighbors(g, path[end])); collect(inneighbors(g, path[end])) ]
@@ -316,7 +329,7 @@ function findsimpleloop(g, edgecurrents; maxcurrent = Inf, maxpathlength = Inf,
             while !isempty(paths)
                 # get all cells including that vertex
                 # take the last added path
-                path = shift!(paths)
+                path = popfirst!(paths)
                 length(path) > maxpathlength && break
                 verbose && (safetycounter += 1) % 10_000 == 0 && println("  Pathlength: $(length(path))")
 
@@ -423,7 +436,7 @@ function solve_system(g, vertex_positions, poi, B; initialcells = [],
     # \ returns the least-norm solution already (so least current) in case of ambiguity
     # We are using Tikchonov regularization
     verbose && printlnflush("Solving for currents in the cells...")
-    optI = [M; λ * eye(size(M,2))] \ [Bpoi; zeros(size(M,2))]
+    optI = [M; λ * I] \ [Bpoi; zeros(size(M,2))]
 
     verbose && printlnflush("Finding the total currents along the edges...")
     edgecurrents = find_edgecurrents(g, cells, optI, bigfloat = bigfloat)
