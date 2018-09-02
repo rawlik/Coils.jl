@@ -12,7 +12,7 @@ using ProgressMeter
 
 export cuboid_system, getedgei, getedge, find_cells, biotsavart,
     biotsavart_cell, system_matrix, find_edgecurrents, simplify_current_graph,
-    find_simpleloop, find_all_simpleloops, solve_system, cuboid_poi,
+    findsimpleloop, find_all_simpleloops, solve_system, cuboid_poi,
     decompose, decompose_currents, field_loops, μ0, order_cell,
     real_decomposed_currents, save_result
 
