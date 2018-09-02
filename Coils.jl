@@ -458,7 +458,7 @@ end
 decompose(823.2, [100., 10., 1.]) = [8, 2, 3]
 if roundlast is true, the last element is rounded:
 decompose(84.86, [10., 1., 0.1], roundlast = true) = [8, 4, 9] """
-function decompose{T<:AbstractFloat}(x::T, elements::Vector{T}; roundlast = false)
+function decompose(x::T, elements::Vector{T}; roundlast = false) where {T <: AbstractFloat}
     coeffs = similar(elements)
 
     for i in eachindex(elements)
