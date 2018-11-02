@@ -5,3 +5,4 @@ deps/deps.jl
 *__pycache__
 *.pdf
 .DS_Store
+.ipynb_checkpoints
