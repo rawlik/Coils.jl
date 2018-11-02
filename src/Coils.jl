@@ -25,6 +25,7 @@ end
 if VERSION < v"1.0.0"
     popfirst!(x) = shift!(x)
     pushfirst!(x) = unshift!(x)
+    stdout = STDOUT
 end
 
 
@@ -418,7 +419,7 @@ end
 
 function printlnflush(s)
     println(s)
-    flush(STDOUT)
+    flush(stdout)
 end
 
 function solve_system(g, vertex_positions, poi, B; initialcells = [],
