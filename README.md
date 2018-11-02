@@ -14,7 +14,7 @@ For julia 1.0 or newer you can install the package by pressing `]` to enter the 
 (v1.0) pkg> add https://github.com/rawlik/Coils.jl
 ```
 
-See the `example` jupyter notebook for an introduction.
+See the [`example.ipynb` jupyter notebook](http://nbviewer.jupyter.org/github/rawlik/Coils.jl/blob/master/example.ipynb) for an introduction.
 
 
 ## Local development
