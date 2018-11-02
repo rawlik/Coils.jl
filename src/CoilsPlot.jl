@@ -5,10 +5,9 @@ using ProgressMeter
 using PyPlot
 using PyCall
 @pyimport matplotlib.patheffects as patheffects
-unshift!(PyVector(pyimport("sys")["path"]), joinpath(dirname(@__FILE__)))
+pushfirst!(PyVector(pyimport("sys")["path"]), joinpath(dirname(@__FILE__)))
 @pyimport arrow3d
 
-using Coils
 
 
 export plot_vertex, plot_vertices, plot_edges, plot_system,

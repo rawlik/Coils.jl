@@ -24,7 +24,11 @@ end
 
 if VERSION < v"1.0.0"
     popfirst!(x) = shift!(x)
+    pushfirst!(x) = unshift!(x)
 end
+
+
+include("CoilsPlot.jl")
 
 
 "skipfaces is in the order [x-, x+, y-, y+, z-, z+]"
