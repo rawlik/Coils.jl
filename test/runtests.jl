@@ -1,4 +1,4 @@
-if VERSION >= v"1.0.0"
+if VERSION >= v"0.7"
     import Test.@testset
     import Test.@test
 else

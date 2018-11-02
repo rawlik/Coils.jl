@@ -2,7 +2,7 @@ __precompile__()
 
 module Coils
 
-if VERSION >= v"1.0.0"
+if VERSION >= v"0.7"
     using Statistics
     using LinearAlgebra
 end
@@ -17,12 +17,12 @@ export cuboid_system, getedgei, getedge, find_cells, biotsavart,
     real_decomposed_currents, save_result
 
 
-if VERSION >= v"1.0.0"
+if VERSION >= v"0.7"
     "To be able to write linspace.(starts, stops, lengths)"
     linspace(start, stop, length) = range(start, stop = stop, length = length)
 end
 
-if VERSION < v"1.0.0"
+if VERSION < v"0.7"
     popfirst!(x) = shift!(x)
     pushfirst!(x) = unshift!(x)
     stdout = STDOUT
