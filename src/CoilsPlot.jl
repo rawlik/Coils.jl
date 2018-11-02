@@ -26,7 +26,7 @@ function plot_poi(poi; standalone = true)
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -47,7 +47,7 @@ function plot_vertex(vertex_position; standalone = true, label = "")
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -63,7 +63,7 @@ function plot_vertices(vertex_positions; standalone = true, labels = true)
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -82,7 +82,7 @@ function plot_edges(g, vertex_positions; standalone = true, alpha = 1)
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -98,7 +98,7 @@ function plot_system(g, vertex_positions, poi; standalone = true)
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -262,7 +262,7 @@ function plot_loops_field(loops, currents, vertex_positions,
     end
 
     colorbar(cax = axs[4], label = "field deviation from goal (μT)")
-    tight_layout()
+    # tight_layout()
 end
 
 
