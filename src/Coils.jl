@@ -2,10 +2,8 @@ __precompile__()
 
 module Coils
 
-if VERSION >= v"1.0.0"
-    using Statistics
-    using LinearAlgebra
-end
+using Statistics
+using LinearAlgebra
 using LightGraphs
 using ProgressMeter
 
@@ -17,14 +15,11 @@ export cuboid_system, getedgei, getedge, find_cells, biotsavart,
     real_decomposed_currents, save_result
 
 
-if VERSION >= v"1.0.0"
-    "To be able to write linspace.(starts, stops, lengths)"
-    linspace(start, stop, length) = range(start, stop = stop, length = length)
-end
+# To be able to write linspace.(starts, stops, lengths)
+linspace(start, stop, length) = range(start, stop = stop, length = length)
 
-if VERSION < v"1.0.0"
-    popfirst!(x) = shift!(x)
-end
+
+include("CoilsPlot.jl")
 
 
 "skipfaces is in the order [x-, x+, y-, y+, z-, z+]"
@@ -414,7 +409,7 @@ end
 
 function printlnflush(s)
     println(s)
-    flush(STDOUT)
+    flush(stdout)
 end
 
 function solve_system(g, vertex_positions, poi, B; initialcells = [],

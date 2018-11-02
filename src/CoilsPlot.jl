@@ -1,15 +1,12 @@
 module CoilsPlot
 
+using Statistics
 using LightGraphs
 using ProgressMeter
 using PyPlot
 using PyCall
-@pyimport matplotlib.patheffects as patheffects
-unshift!(PyVector(pyimport("sys")["path"]), joinpath(dirname(@__FILE__)))
-@pyimport arrow3d
 
 using Coils
-
 
 export plot_vertex, plot_vertices, plot_edges, plot_system,
     plot_cell, plot_edge_current, plot_loop, plot_simpleloop,
@@ -17,17 +14,35 @@ export plot_vertex, plot_vertices, plot_edges, plot_system,
     plot_cells, plot_loops_field, plot_deviation_histogram
 
 
+# Would like to do:
+# @pyimport matplotlib.patheffects as patheffects
+# @pyimport arrow3d
+# but annot use precompilation with @pyimport
+# ref. https://github.com/JuliaPy/PyCall.jl#using-pycall-from-julia-modules
+function __init__()
+    global patheffects, arrow3d
+    patheffects = pywrap(pyimport("matplotlib.patheffects"))
+    pushfirst!(PyVector(pyimport("sys")["path"]), joinpath(dirname(@__FILE__)))
+    arrow3d = pywrap(pyimport("arrow3d"))
+
+    using3D()
+end
+
+# To be able to write linspace.(starts, stops, lengths)
+linspace(start, stop, length) = range(start, stop = stop, length = length)
+signif(x, n) = round(x, sigdigits = n)
+
 
 function plot_poi(poi; standalone = true)
     standalone && subplot(111, projection = "3d")
 
     # plot needs array of xs, then ys and then zs
-    gca()[:plot](zip(poi...)..., ".")
+    gca()[:plot](getindex.(poi, 1), getindex.(poi, 2), getindex.(poi, 3), ".")
 
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -48,7 +63,7 @@ function plot_vertex(vertex_position; standalone = true, label = "")
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -64,7 +79,7 @@ function plot_vertices(vertex_positions; standalone = true, labels = true)
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -83,7 +98,7 @@ function plot_edges(g, vertex_positions; standalone = true, alpha = 1)
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -99,7 +114,7 @@ function plot_system(g, vertex_positions, poi; standalone = true)
     if standalone
         xlabel("x")
         ylabel("y")
-        tight_layout()
+        # tight_layout()
         equalize_3d_aspect()
     end
 end
@@ -263,7 +278,7 @@ function plot_loops_field(loops, currents, vertex_positions,
     end
 
     colorbar(cax = axs[4], label = "field deviation from goal (μT)")
-    tight_layout()
+    # tight_layout()
 end
 
 
