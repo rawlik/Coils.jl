@@ -1,8 +1,6 @@
 module CoilsPlot
 
-if VERSION >= v"0.7"
-    using Statistics
-end
+using Statistics
 using LightGraphs
 using ProgressMeter
 using PyPlot
@@ -30,14 +28,9 @@ function __init__()
     using3D()
 end
 
-if VERSION >= v"0.7"
-    "To be able to write linspace.(starts, stops, lengths)"
-    linspace(start, stop, length) = range(start, stop = stop, length = length)
-end
-
-if VERSION >= v"0.7"
-    signif(x, n) = round(x, sigdigits = n)
-end
+# To be able to write linspace.(starts, stops, lengths)
+linspace(start, stop, length) = range(start, stop = stop, length = length)
+signif(x, n) = round(x, sigdigits = n)
 
 
 function plot_poi(poi; standalone = true)
