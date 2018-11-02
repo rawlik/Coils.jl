@@ -4,16 +4,27 @@ using LightGraphs
 using ProgressMeter
 using PyPlot
 using PyCall
-@pyimport matplotlib.patheffects as patheffects
-pushfirst!(PyVector(pyimport("sys")["path"]), joinpath(dirname(@__FILE__)))
-@pyimport arrow3d
-
 
 
 export plot_vertex, plot_vertices, plot_edges, plot_system,
     plot_cell, plot_edge_current, plot_loop, plot_simpleloop,
     save_plots_simpleloops, save_report, plot_edge_currents,
     plot_cells, plot_loops_field, plot_deviation_histogram
+
+
+# Would like to do:
+# @pyimport matplotlib.patheffects as patheffects
+# @pyimport arrow3d
+# but annot use precompilation with @pyimport
+# ref. https://github.com/JuliaPy/PyCall.jl#using-pycall-from-julia-modules
+function __init__()
+    global patheffects, arrow3d
+    patheffects = pywrap(pyimport("matplotlib.patheffects"))
+    pushfirst!(PyVector(pyimport("sys")["path"]), joinpath(dirname(@__FILE__)))
+    arrow3d = pywrap(pyimport("arrow3d"))
+
+    using3D()
+end
 
 
 
