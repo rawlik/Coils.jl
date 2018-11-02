@@ -7,7 +7,5 @@ julia:
   - 0.7
   - 1.0
 script:
-  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.update()'
-  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.add("LightGraphs")'
-  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.add("ProgressMeter")'
-  - julia test.jl
+  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.add(".")'
+  - julia -e 'VERSION >= v"1.0.0" && using Pkg; Pkg.test("Coils")' 
