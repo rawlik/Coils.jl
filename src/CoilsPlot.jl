@@ -1,10 +1,14 @@
 module CoilsPlot
 
+if VERSION >= v"1.0.0"
+    using Statistics
+end
 using LightGraphs
 using ProgressMeter
 using PyPlot
 using PyCall
 
+using Coils
 
 export plot_vertex, plot_vertices, plot_edges, plot_system,
     plot_cell, plot_edge_current, plot_loop, plot_simpleloop,
@@ -26,6 +30,14 @@ function __init__()
     using3D()
 end
 
+if VERSION >= v"1.0.0"
+    "To be able to write linspace.(starts, stops, lengths)"
+    linspace(start, stop, length) = range(start, stop = stop, length = length)
+end
+
+if VERSION >= v"1.0.0"
+    signif(x, n) = round(x, sigdigits = n)
+end
 
 
 function plot_poi(poi; standalone = true)
