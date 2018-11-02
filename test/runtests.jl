@@ -23,3 +23,7 @@ const tol = 1e-10
     field = field_loops(poi[1], simpleloops, simpleloopscurrents, vertex_positions)
     @test abs(field[3] - 50) < tol
 end
+
+@testset "Example code with plotting" begin
+    include("example.jl")
+end
