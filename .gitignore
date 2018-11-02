@@ -2,6 +2,6 @@
 *.jl.*.cov
 *.jl.mem
 deps/deps.jl
-__pycache__/*
+*__pycache__
 *.pdf
 .DS_Store
