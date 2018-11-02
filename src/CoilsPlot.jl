@@ -32,7 +32,7 @@ function plot_poi(poi; standalone = true)
     standalone && subplot(111, projection = "3d")
 
     # plot needs array of xs, then ys and then zs
-    gca()[:plot](zip(poi...)..., ".")
+    gca()[:plot](getindex.(poi, 1), getindex.(poi, 2), getindex.(poi, 3), ".")
 
     if standalone
         xlabel("x")
