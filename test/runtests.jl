@@ -19,6 +19,10 @@ const tol = 1e-10
     @test abs(field[3] - 50) < tol
 end
 
-@testset "Example code with plotting" begin
-    include("example.jl")
+if !(("TRAVIS" in keys(ENV)) & Sys.isapple())
+    # do not execute this test on OSX in Travis - there is a problem with
+    # matplotlib there
+    @testset "Example code with plotting" begin
+        include("example.jl")
+    end
 end
