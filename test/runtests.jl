@@ -1,10 +1,5 @@
-if VERSION >= v"0.7"
-    import Test.@testset
-    import Test.@test
-else
-    import Base.Test.@testset
-    import Base.Test.@test
-end
+import Test.@testset
+import Test.@test
 
 using LightGraphs
 
