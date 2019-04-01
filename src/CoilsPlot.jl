@@ -37,7 +37,7 @@ function plot_poi(poi; standalone = true)
     standalone && subplot(111, projection = "3d")
 
     # plot needs array of xs, then ys and then zs
-    gca()[:plot](getindex.(poi, 1), getindex.(poi, 2), getindex.(poi, 3), ".")
+    gca().plot(getindex.(poi, 1), getindex.(poi, 2), getindex.(poi, 3), ".")
 
     if standalone
         xlabel("x")
@@ -51,12 +51,12 @@ end
 function plot_vertex(vertex_position; standalone = true, label = "")
     standalone && subplot(111, projection = "3d")
 
-    gca()[:plot]([vertex_position[1]], [vertex_position[2]], [vertex_position[3]],
+    gca().plot([vertex_position[1]], [vertex_position[2]], [vertex_position[3]],
         "o", color = "black", markersize = 1)
     if label != ""
-        txt = gca()[:text](vertex_position...,  label,
+        txt = gca().text(vertex_position...,  label,
             horizontalalignment = "center", verticalalignment = "center")
-        txt[:set_path_effects]([patheffects.Stroke(linewidth = 3, foreground = "white"),
+        txt.set_path_effects([patheffects.Stroke(linewidth = 3, foreground = "white"),
                            patheffects.Normal()])
     end
 
@@ -91,7 +91,7 @@ function plot_edges(g, vertex_positions; standalone = true, alpha = 1)
     for edge in edges(g)
         pos1 = vertex_positions[src(edge)]
         pos2 = vertex_positions[dst(edge)]
-        gca()[:plot]([pos1[1], pos2[1]], [pos1[2], pos2[2]], [pos1[3], pos2[3]],
+        gca().plot([pos1[1], pos2[1]], [pos1[2], pos2[2]], [pos1[3], pos2[3]],
             color = "black", alpha = alpha)
     end
 
@@ -147,9 +147,9 @@ function plot_cell(cell, vertex_positions; shrink = 0.8, label = "")
     end
 
     if label != ""
-        txt = gca()[:text](xmean, ymean, zmean, label,
+        txt = gca().text(xmean, ymean, zmean, label,
             horizontalalignment = "center", verticalalignment = "center", color = "C0")
-        txt[:set_path_effects]([patheffects.Stroke(linewidth = 3, foreground = "white"),
+        txt.set_path_effects([patheffects.Stroke(linewidth = 3, foreground = "white"),
                            patheffects.Normal()])
     end
 end
@@ -172,9 +172,9 @@ function plot_edge_current(edge, current, vertex_positions)
     arrow3d.add_arrow3D([pos1[1], pos2[1]], [pos1[2], pos2[2]], [pos1[3], pos2[3]],
         color = "black")
 
-    txt = gca()[:text](mean([pos1, pos2])...,  "$(signif(current, 4))",
+    txt = gca().text(mean([pos1, pos2])...,  "$(signif(current, 4))",
         horizontalalignment = "center", verticalalignment = "center")
-    txt[:set_path_effects]([patheffects.Stroke(linewidth = 3, foreground = "white"),
+    txt.set_path_effects([patheffects.Stroke(linewidth = 3, foreground = "white"),
                        patheffects.Normal()])
 end
 
@@ -268,7 +268,7 @@ function plot_loops_field(loops, currents, vertex_positions,
     for i in 1:3
         sca(axs[i])
         contourf(As, Bs, B[:,:,i]' * 1e6, levels = levels, extend = "both", cmap="RdBu_r")
-        gca()[:set_aspect]("equal")
+        gca().set_aspect("equal")
         xlabel("xyz"[dirs[1:1]])
         ylabel("xyz"[dirs[2:2]])
         dirletter = "xyz"[i]
@@ -288,7 +288,7 @@ function plot_deviation_histogram(poi, loops, loopscurrents, vertex_positions,
     deviations = vcat([
         field_loops(p, loops, loopscurrents, vertex_positions) .- Bgoal(p)
         for p in poi ]...)
-    plt[:hist](deviations * 1e6, bins = 100)
+    plt.hist(deviations * 1e6, bins = 100)
     yscale("log", nonposy="clip")
     xlabel("deviation from goal (μT)")
     ylabel("# POI")
@@ -316,22 +316,22 @@ function save_report(folder, vertex_positions, g, poi, Bgoal, simpleloops,
 
     figure(figsize = (15,15))
     plot_system(g, vertex_positions, poi)
-    gca()[:azim] = -90
-    gca()[:elev] = 90
+    gca().azim = -90
+    gca().elev = 90
     savefig(joinpath(folder, "system_top.$extension"), dpi = dpi)
     close("all")
 
     figure(figsize = (15,15))
     plot_system(g, vertex_positions, poi)
-    gca()[:azim] = -90
-    gca()[:elev] = 0
+    gca().azim = -90
+    gca().elev = 0
     savefig(joinpath(folder, "system_front.$extension"), dpi = dpi)
     close("all")
 
     figure(figsize = (15,15))
     plot_system(g, vertex_positions, poi)
-    gca()[:azim] = 0
-    gca()[:elev] = 0
+    gca().azim = 0
+    gca().elev = 0
     savefig(joinpath(folder, "system_right.$extension"), dpi = dpi)
     close("all")
 
