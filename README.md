@@ -18,53 +18,30 @@ See the [`example.ipynb` jupyter notebook](http://nbviewer.jupyter.org/github/ra
 
 
 ## Local development
-Press `]` to enter the pkg mode
+Clone the repository:
+
+```
+git clone git@github.com:rawlik/Coils.jl.git
+```
+
+In julia, press `]` to activate package management environment
 ```julia
-(v1.0) pkg> generate MyCoilsProject
-Generating project MyCoilsProject:
-    MyCoilsProject\Project.toml
-    MyCoilsProject/src/MyCoilsProject.jl
+(@v1.9) pkg> dev .
 ```
 
-Change the directory in the command-line mode (press `;`) and activate
-the environment:
+Working is much easier with the `Revise` module. The changes in the files are automatically loaded.
 ```julia
-shell> cd MyCoilsProject
-C:\Users\rawlik\tmp\MyCoilsProject
-(v1.0) pkg> activate .
-(MyCoilsProject) pkg>
+(@v1.9) pkg> add Revise
 ```
 
-Then install a local copy of the the Coils package for development:
+Press backspace to exit the package management environment, and import Coils
 ```julia
-(MyCoilsProject) pkg> develop --local https://github.com/rawlik/Coils.jl
+julia> using Revise
+julia> using Coils
 ```
 
-You will have a directory structure 
+To change the dependencies of the package activate its project.
+Run from the directory of the cloned repository:
+```julia
+(@v1.9) pkg> activate .
 ```
-MyCoilsProject
-│   Manifest.toml
-│   Project.toml
-│
-├───dev
-│   └───Coils
-│       │   .gitignore
-│       │   .travis.yml
-│       │   example.ipynb
-│       │   LICENSE
-│       │   Manifest.toml
-│       │   Project.toml
-│       │   README.md
-│       │   screenshot.png
-│       │
-│       └───.git
-└───src
-        MyCoilsProject.jl
-```
-
-
-
-
-
-
-
