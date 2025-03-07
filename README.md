@@ -45,3 +45,9 @@ Run from the directory of the cloned repository:
 ```julia
 (@v1.9) pkg> activate .
 ```
+
+### Run tests
+In the main folder, do:
+```
+julia --project=. -i test/runtests.jl
+```
