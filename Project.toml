@@ -1,7 +1,7 @@
 name = "Coils"
 uuid = "8ca61450-de04-11e8-3269-5b2937c10733"
-authors = ["Michal Rawlik <michal.rawlik@psi.ch>"]
-version = "0.1.0"
+authors = ["Michal Rawlik <mmrawlik@gmail.com>"]
+version = "0.2.0"
 
 [deps]
 LightGraphs = "093fc24a-ae57-5d10-9952-331d41423f4d"
