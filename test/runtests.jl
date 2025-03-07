@@ -11,7 +11,7 @@ const tol = 1e-10
 
 @testset "Solving a system" begin
     g, vertex_positions = cuboid_system([1, 1, 1], [2, 2, 2])
-    poi = [[0,0,0]]
+    poi = [[0, 0, 0]]
     Bgoal(x) = [0, 0, 50]
     simpleloops, simpleloopscurrents = solve_system(g, vertex_positions, poi, Bgoal)
 
